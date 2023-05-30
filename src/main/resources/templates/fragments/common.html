@@ -1,0 +1,63 @@
+<!-- 공통 부분을 따로 구현해서, 다른 HTML파일에서 replace하여 사용. -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:float="http://www.w3.org/1999/xhtml" lang="ko">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+  <link href="starter-template.css" th:href="@{/css/starter-template.css}" rel="stylesheet"/>
+  <title th:text="${title}">Hello, Spring Boot!</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="menu(menu)" >
+  <style>
+    body{
+    padding-top : 80px;
+    }
+  </style>
+  <a class="navbar-brand" href="#">Board</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" th:classappend="${menu} == 'home'? 'active'">
+        <a class="nav-link" href="#" th:href="@{/}">
+          홈
+          <span class="sr-only" th:if="${menu} == 'home'">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item" th:classappend="${menu} == 'board'? 'active'">
+        <a class="nav-link" href="#" th:href="@{/board/list}">
+          게시판
+          <span class="sr-only" th:if="${menu} == 'board'">(current)</span>
+        </a>
+      </li>
+        <div sec:authorize="!isAuthenticated()">
+      <li>
+        <a class="btn btn-info" th:href="@{/user/login}">로그인</a>
+        <a class="btn btn-info" th:href="@{/user/join}">회원가입</a>
+      </li>
+        </div>
+      <li>
+        <div sec:authorize="isAuthenticated()">
+           <a  class="btn btn-info" th:href="@{/user/update}">회원정보</a>
+        </div>
+      </li>
+      <li>
+        <div sec:authorize="isAuthenticated()">
+          <form th:action="@{/logout}" method="POST" sec:authorize="isAuthenticated()">
+            <button type="submit" class="btn btn-info" >로그아웃</button>
+          </form>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</nav>
+</body>
+</html>

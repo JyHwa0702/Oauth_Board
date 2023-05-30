@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tripview 회원가입</title>
+  <link rel="stylesheet" href="/css/user/join.css">
+</head>
+
+
+<body>
+<div class="logo">
+  <a th:href="@{/}" title="메인 페이지"><img src="../css/image/Tripview.png" class="image"></a>
+</div>
+
+<section class="login-wrap">
+  <form th:action="@{/user/join}"  th:object="${userDto}" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+    <H2>회원가입</H2>
+    <div class="login-id-wrap">
+      <input type="text" name="username" th:field="*{username}" id="input-id" placeholder="이름을 입력해주세요"></input>
+<!--      <input type="button" id="duplicate-username" name="usernameDuplicate" value="중복체크">-->
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="fieldError">Incorrect data</p>
+
+    </div>
+
+    <div class="login-email">
+      <input type="email" name="email"  th:field="*{email}" id="input-email" placeholder="이메일을 입력해주세요."></input>
+      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+
+    </div>
+    <div class="login-pw-wrap-1">
+      <input type="password" name="password" th:field="*{password}"  id="input-pw-1" placeholder="비밀번호를 입력해주세요."></input>
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+
+    </div>
+    <div class="signup-btn-wrap"><!--회원가입완료 버튼-->
+      <button type="submit" id="signup-btn" >회원가입</button>
+    </div>
+  </form>
+</section>
+
+
+</body>
+</html>
