@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ProjectApplication {
 
 
-	//spring security는 BCryptPasswordEncoder를 반드시 사용해야한다.(비밀번호 보안떄문에)
+	//spring security는 BCryptPasswordEncoder를 반드시 사용해야한다.(비밀번호 보안떄문에).
 	@Bean
 	public BCryptPasswordEncoder encoder(){
 		return new BCryptPasswordEncoder();
