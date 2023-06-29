@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보 수정</title>
+    <link rel="stylesheet" href="/css/user/join.css">
+</head>
+
+<body>
+
+<div class="logo">
+    <a th:href="@{/}" title="메인 페이지"><img src="../css/image/Tripview.png" class="image"></a>
+</div>
+
+<section class="login-wrap">
+    <form th:action="@{/user/update}" method="post" th:object="${userDto}" >
+        <input type="hidden" name="_method" value="PUT">
+        <H2>회원정보 수정</H2>
+        <div class="login-id-wrap">
+            <H4>닉네임</H4>
+            <input type="text" name="username" id="input-id" placeholder="변경할 닉네임을 입력해주세요" th:value="${username}"></input>
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="fieldError">Incorrect data</p>
+
+            <input type="hidden" name="password" th:value="${userDto.password}"/>
+<!--            <input type="password" name="password" id="input-password" placeholder="현재 비밀번호를 입력해주세요"></input>-->
+<!--            <p th:if="${#fields.hasErrors('password')}" th:errors="*{userDto.password}" class="fieldError">Incorrect data</p>-->
+        </div>
+
+        <br>
+
+        <div class="login-email">
+            <H4>이메일</H4>
+            <input type="email" name="email"  id="input-email" th:value="${userDto.email}" readonly></input>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="signup-btn-wrap"><!-- 개인정보수정 버튼-->
+            <button type="submit" id="signup-btn" >정보수정완료</button>
+        </div>
+    </form>
+</section>
+
+
+</body>
+</html>
